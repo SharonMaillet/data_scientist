@@ -25,24 +25,27 @@ def hash_crypto
 end
 
 def highiest_value
-    sort_by_lowest_value = hash_crypto.sort_by{|key, value| value}
-    highiest_value_currency = sort_by_lowest_value[-1]
+    highiest_values = hash_crypto.values.max
+    highiest_value_hash = Hash[hash_crypto.select { |k, v| v == highiest_values}]
 
-    puts "#{highiest_value_currency[0]} enregistre le plus haut prix à #{highiest_value_currency[1]}$"
+    highiest_value_hash.each do |key, value|
+        puts "#{key} enregistre le plus haut prix à #{value}$"
+    end
 end
 
-def lowest_value
-    sort_by_lowest_value = hash_crypto.sort_by{|key, value| value}
-    lowest_value_currency = sort_by_lowest_value[0]
+def lowest_value 
+    lowest_values = hash_crypto.values.min
+    lowest_value_hash = Hash[hash_crypto.select { |k, v| v == lowest_values}]
 
-    value_to_decimal = '%.10f' % lowest_value_currency[1]
-    puts "#{lowest_value_currency[0]} enregistre le plus bas prix à #{value_to_decimal}$"
+    lowest_value_hash.each do |key, value|
+        puts "#{key} enregistre le plus bas prix à #{'%.10f' % value}$"
+    end
 end
 
 def under6000
     puts "Les cryptos suivantes ont un prix supérieur à 6000$ :"
     hash_crypto.each do |k, v|
-        if v > 6000
+        if v < 6000
             puts "#{k} avec un prix de #{v}$"
         end
     end
@@ -52,33 +55,56 @@ def highiest_under_6000
     puts "Parmis les cryptos avec un prix inférieur à 6000$, la plus chère est :"
     under_6000 = hash_crypto.select{|k, v| v < 6000}
     
-
     sort_by_lowest_value = under_6000.sort_by{|k, v| v}
     highiest_value_currency = sort_by_lowest_value[-1]
 
+    test = under_6000.values.max
+    test_hash = Hash[under_6000.select { |k, v| v == under_6000}]
+
+    test_hash.each do |k, v|
+        puts "#{k} enregistre le plus bas prix à #{v}$"
+    end
     puts "#{highiest_value_currency[0]} qui enregistre le plus haut prix à #{highiest_value_currency[1]}$"
 end
 
 def perform
     name = crypto_name
     price = crypto_price
+    choice = nil
 
-    puts "Que veux tu savoir ?"
-    puts "1. La ou les crypto qui ont la plus grosse valeur."
-    puts "2. La ou les crypto qui ont la plus petite valeur."
-    puts "3. Les devises dont le cours est inférieur à 6000"
-    puts "4. La devise la plus chère parmi celles dont le cours est inférieur à 6000."
+    while choice != 5
+        puts "Que veux tu savoir ?"
+        puts "1. La ou les crypto qui ont la plus grosse valeur."
+        puts "2. La ou les crypto qui ont la plus petite valeur."
+        puts "3. Les devises dont le cours est inférieur à 6000"
+        puts "4. La devise la plus chère parmi celles dont le cours est inférieur à 6000."
+        puts "5. Pour quitter entre '5'"
 
-    choice = gets.chomp.to_i
+        choice = gets.chomp.to_i
 
-    if choice == 1
-        highiest_value
-    elsif choice == 2
-        lowest_value
-    elsif choice == 3
-        under6000
-    else
-        highiest_under_6000
+        if choice == 1
+            puts "----------------------------------------------------"
+            highiest_value
+            puts "----------------------------------------------------"
+        elsif choice == 2
+            puts "----------------------------------------------------"
+            lowest_value
+            puts "----------------------------------------------------"
+        elsif choice == 3
+            puts "----------------------------------------------------"
+            under6000
+            puts "----------------------------------------------------"
+        elsif choice == 4
+            puts "----------------------------------------------------"
+            highiest_under_6000
+            puts "----------------------------------------------------"
+        elsif choice == 5
+            exit
+        else
+            puts "----------------------------------------------------"
+            puts "Erreur : rentre un numéro"
+            puts "----------------------------------------------------"
+        end
     end
 end
 

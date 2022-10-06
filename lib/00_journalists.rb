@@ -3,8 +3,7 @@ def array
 end
 
 def length(arr)
-    true_arr_length = arr.length + 1
-    puts "Il y a #{true_arr_length} handle à traiter"
+    puts "Il y a #{arr.length} handle à traiter"
 end
 
 def shortest(arr)
@@ -27,7 +26,7 @@ def maj(arr)
 end
 
 def alphabetical(arr)
-    alph = arr.sort
+    alph = arr.sort(&:casecmp)
     puts alph
 end
 
@@ -54,36 +53,61 @@ end
 
 def perform
     arr = array
+    choice = nil
 
-    puts "Que veux tu savoir ?"
-    puts "1. Combien y a-t-il de handle dans cette array ?"
-    puts "2. Quel est le handle le plus court de cette liste ?"
-    puts "3. Combien y-a-t'il de handle contenant 5 caractères"
-    puts "4. Combien commencent par une majuscule ?"
-    puts "5. Trie la liste de handle par ordre alphabétique"
-    puts "6. Trie la liste de handle par taille des handle"
-    puts "7. Quelle est la position dans l'array de @epenser"
-    puts "8. La répartition des handle par taille de ces derniers"
+    while choice != 9
+        puts "Que veux tu savoir ?"
+        puts "1. Combien y a-t-il de handle dans cette array ?"
+        puts "2. Quel est le handle le plus court de cette liste ?"
+        puts "3. Combien y-a-t'il de handle contenant 5 caractères"
+        puts "4. Combien commencent par une majuscule ?"
+        puts "5. Trie la liste de handle par ordre alphabétique"
+        puts "6. Trie la liste de handle par taille des handle"
+        puts "7. Quelle est la position dans l'array de @epenser"
+        puts "8. La répartition des handle par taille de ces derniers"
+        puts "9. Pour quitter entre '9'"
 
-    choice = gets.chomp.to_i
+        choice = gets.chomp.to_i
 
-    if choice == 1
-        length(arr)
-    elsif choice == 2
-        shortest(arr)
-    elsif choice == 3
-        five_char(arr)
-    elsif choice == 4
-        maj(arr)
-        
-    elsif choice == 5 
-        alphabetical(arr)   
-    elsif choice == 6
-        sort_by_length(arr)
-    elsif choice == 7
-        epenser(arr)
-    else
-        num_length(arr)
+        if choice == 1
+            puts "----------------------------------------------------"
+            length(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 2
+            puts "----------------------------------------------------"
+            shortest(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 3
+            puts "----------------------------------------------------"
+            five_char(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 4
+            puts "----------------------------------------------------"
+            maj(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 5 
+            puts "----------------------------------------------------"
+            alphabetical(arr)  
+            puts "----------------------------------------------------" 
+        elsif choice == 6
+            puts "----------------------------------------------------"
+            sort_by_length(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 7
+            puts "----------------------------------------------------"
+            epenser(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 8
+            puts "----------------------------------------------------"
+            num_length(arr)
+            puts "----------------------------------------------------"
+        elsif choice == 9
+            exit
+        else
+            puts "----------------------------------------------------"
+            puts "Erreur : rentre un numéro"
+            puts "----------------------------------------------------"
+        end
     end
 end
 
